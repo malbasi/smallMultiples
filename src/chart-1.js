@@ -75,8 +75,6 @@ function ready(datapoints) {
     .key(d => d.region)
     .entries(datapoints)
 
-  console.log(nested)
-
   // Draw your lines
   svg
     .selectAll('.price-line')
@@ -119,7 +117,7 @@ function ready(datapoints) {
   svg
     .append('text')
     .text('U.S. Housing Prices Fall in Winter')
-    .attr('x', width/2)
+    .attr('x', width / 2)
     .attr('y', 0)
     .attr('font-size', 20)
     .attr('text-anchor', 'middle')
@@ -153,4 +151,12 @@ function ready(datapoints) {
     .call(yAxis)
 }
 
-export { xPositionScale, yPositionScale, colorScale, line, width, height, parseTime }
+export {
+  xPositionScale,
+  yPositionScale,
+  colorScale,
+  line,
+  width,
+  height,
+  parseTime
+}

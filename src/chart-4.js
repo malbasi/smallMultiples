@@ -9,10 +9,63 @@ var width = 400 - margin.left - margin.right
 var container = d3.select('#chart-4')
 
 // Create your scales
+let xPositionScale = d3
+  .scaleLinear()
+  .domain([-6, 6])
+  .range([0, width])
+
+let yPositionScale = d3
+  .scaleLinear()
+  .range([height, 0])
 
 // Create your area generator
+var area = d3
+  .area()
+  .x(d => xPositionScale(d.Age))
+  .y0(height)
 
 // Read in your data, then call ready
 
-// Write your ready function
+d3.tsv(require('./climate-data.tsv'))
+  .then(ready)
+  .catch(err => {
+    console.log(err)
+  })
 
+// Write your ready function
+function ready(datapoints) {
+  var through80s = datapoints.filter(function(d) {
+    return d.year < 1980
+  })
+  container
+    .append('svg')
+    .attr('class', 'svg1951')
+    .attr('height', height + margin.top + margin.bottom)
+    .attr('width', width + margin.left + margin.right)
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+  container
+    .append('svg')
+    .attr('class', 'svg1983')
+    .attr('height', height + margin.top + margin.bottom)
+    .attr('width', width + margin.left + margin.right)
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+  container
+    .append('svg')
+    .attr('class', 'svg1994')
+    .attr('height', height + margin.top + margin.bottom)
+    .attr('width', width + margin.left + margin.right)
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+  container
+    .append('svg')
+    .attr('class', 'svg2005')
+    .attr('height', height + margin.top + margin.bottom)
+    .attr('width', width + margin.left + margin.right)
+    .append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`)
+}
