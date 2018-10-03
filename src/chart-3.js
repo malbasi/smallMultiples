@@ -91,10 +91,10 @@ function ready([worldDatapoints, usaDatapoints]) {
         .attr('stroke-width', 2)
         .attr('fill', 'none')
 
-      // and 'U.S.' to each USA line
+      // and 'U.S.A.' to each USA line
       svg
         .append('text')
-        .text('U.S.')
+        .text('USA')
         .attr('x', 20)
         .attr('y', 25)
         .attr('font-size', 12)
@@ -105,7 +105,7 @@ function ready([worldDatapoints, usaDatapoints]) {
       // Add your axes
       var xAxis = d3
         .axisBottom(xPositionScale)
-        .tickValues([1980, 2010])
+        .tickValues([1980, 1990, 2000, 2010])
         .tickSize(0)
         .tickFormat(d3.format("d"))
 
@@ -115,11 +115,13 @@ function ready([worldDatapoints, usaDatapoints]) {
         .attr('transform', 'translate(0,' + height + ')')
         .call(xAxis)
 
+      var formatComma = d3.format(",")
+
       var yAxis = d3
         .axisLeft(yPositionScale)
         .ticks(4)
         .tickSize(-width)
-        .tickFormat(d => '$' + d)
+        .tickFormat(d => '$' + formatComma(d))
         .tickValues([5000, 10000, 15000, 20000])
 
       svg

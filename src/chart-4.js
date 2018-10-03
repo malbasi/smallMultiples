@@ -21,8 +21,9 @@ let yPositionScale = d3
 // Create your area generator
 var area = d3
   .area()
-  .x(d => xPositionScale(d.Age))
+  .x(d => xPositionScale(d.key))
   .y0(height)
+  .y1(d => yPositionScale(d.value))
 
 // Read in your data, then call ready
 
@@ -37,6 +38,16 @@ function ready(datapoints) {
   var through80s = datapoints.filter(function(d) {
     return d.year < 1980
   })
+  
+  var nested = d3
+    .nest()
+    .key(d => d.freq)
+    .rollup(values => d3.median(values, v => v.diff))
+    .entries(through80s)
+
+  let dates = nested.map(d => +d.value)
+  yPositionScale.domain(d3.extent(dates))
+
   container
     .append('svg')
     .attr('class', 'svg1951')
@@ -44,6 +55,14 @@ function ready(datapoints) {
     .attr('width', width + margin.left + margin.right)
     .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
+    .data(nested)
+    .append('path')
+    .attr('d', area)
+    .attr('stroke', 'black')
+    .attr('stroke-width', 2)
+    .attr('fill', 'none')
+    .lower()
+
 
   container
     .append('svg')
@@ -68,4 +87,5 @@ function ready(datapoints) {
     .attr('width', width + margin.left + margin.right)
     .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
 }
