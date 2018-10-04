@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/malbasi/smallMultiples.svg?branch=master)](https://travis-ci.org/malbasi/smallMultiples)
 
-# This page is mostly demonstrating small multiples charts
+# This page demonstrates small multiples charts in D3
 
 ## Installation Instructions
 
